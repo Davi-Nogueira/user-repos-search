@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Repos</title>
+</head>
+<body>
+    <input type="search" name="user" onkeypress="searchOnEnter(event)">
+    <button onclick="startSearching()">Procurar</button>
+    
+    <ul id="repoList">
+        <li>Digite o user da pessoa que quer ver os projetos e clique em procurar</li>
+    </ul>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
