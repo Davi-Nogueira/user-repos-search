@@ -1,5 +1,7 @@
-async function refreshRepos(repositories) {
-    const repoListElement = document.querySelector('#repoList');
+const repoListElement = document.querySelector('#repoList');
+const repoElement = document.createElement('li');
+
+function refreshRepos(repositories) {
 
     if (repoListElement)
         repoListElement.innerHTML = ''
@@ -20,20 +22,31 @@ async function refreshRepos(repositories) {
 
 function reachGithubAPI(userID) {
     axios.get(`https://api.github.com/users/${userID}/repos`)
-        .then((response) => {
-            refreshRepos(response.data);
+        .then((respositories) => {
+            refreshRepos(respositories.data);
         })
         .catch((error) => {
-            console.warn(error);
+            changeFirstItem('Usuário não encontrado');
+            console.log(error);
         });
+    changeFirstItem('Carregando...');
 }
 
-function startSearching() {
+function changeFirstItem(message) {
+    if (repoListElement)
+        repoListElement.innerHTML = '';
+
+    repoElement.innerText = message;
+
+    repoListElement.appendChild(repoElement);
+}
+
+function search() {
     const inputElement = document.querySelector('input');
     reachGithubAPI(inputElement.value);
 }
 
-function searchOnEnter(event) {
+function enterListener(event) {
     if (event.keyCode === 13)
-        startSearching();
+        search();
 }
